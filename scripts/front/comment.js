@@ -1,11 +1,11 @@
 import React from 'react';
-import Remarkable from 'remarkable';
+// import Remarkable from 'remarkable';
 
 export default class Comment extends React.Component {
     constructor() {
         super();
-        
-        this.md = new Remarkable();
+
+        // this.md = new Remarkable();
     }
 
     render() {
@@ -15,7 +15,7 @@ export default class Comment extends React.Component {
             <h2 className="commentAuthor">
               {this.props.author}
             </h2>
-            {this.md.render(this.props.children.toString())}
+            {this.props.children}
           </div>
         );
     }
