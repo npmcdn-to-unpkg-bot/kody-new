@@ -1,18 +1,22 @@
 import React from 'react';
+import Remarkable from 'remarkable';
 
-var Comment = React.createClass({
-  render: function() {
-    var md = new Remarkable();
+export default class Comment extends React.Component {
+    constructor() {
+        super();
+        
+        this.md = new Remarkable();
+    }
+
+    render() {
     
-    return (
-      <div className="comment">
-        <h2 className="commentAuthor">
-          {this.props.author}
-        </h2>
-        {md.render(this.props.children.toString())}
-      </div>
-    );
-  }
-});
-
-export { Comment };
+        return (
+          <div className="comment">
+            <h2 className="commentAuthor">
+              {this.props.author}
+            </h2>
+            {this.md.render(this.props.children.toString())}
+          </div>
+        );
+    }
+};
