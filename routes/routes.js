@@ -1,14 +1,15 @@
 var express = require('express');
 var router = express.Router();
+var path = require('path');
 
-var normalizedPath = __dirname; //require("path").join(__dirname, "routes");
+var normalizedPath = path.join(__dirname, 'api'); //require("path").join(__dirname, "routes");
 
 require("fs").readdirSync(normalizedPath).forEach(function(file) {
 	if (file == 'routes.js') {
 		return;
 	}
 
-	router.use('/' + file.slice(0, -3), require('./' + file));
+	router.use('/api/' + file.slice(0, -3), require('./api/' + file));
 });
 
 router.get('/', function(req, res) {
