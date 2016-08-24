@@ -2,8 +2,9 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 
-var normalizedPath = path.join(__dirname, 'api'); //require("path").join(__dirname, "routes");
+var normalizedPath = path.join(__dirname, 'api');
 
+// loop through the api route files
 require("fs").readdirSync(normalizedPath).forEach(function(file) {
 	if (file == 'routes.js') {
 		return;
@@ -13,7 +14,8 @@ require("fs").readdirSync(normalizedPath).forEach(function(file) {
 });
 
 router.get('/', function(req, res) {
-  res.send('hello world yo');
+	console.log('it happened');
+  	res.send('hello world yo');
 });
 
 module.exports = router;

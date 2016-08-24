@@ -1,0 +1,17 @@
+import React from 'react';
+
+export default class Menu extends React.Component {
+	constructor() {
+		super();
+
+		this.pages = ['main', 'search', 'add new', 'most_popular'];
+	}
+
+	render() {
+		return React.DOM.ul({className: 'nav nav-tabs'}, this.pages.map((p) => {
+			return React.DOM.li({className: 'presentation' + (this.props.page == p ? ' active' : '') ,
+			key: p}, <a onClick={() => this.props.onChangePage(p)}>{p}</a>);
+		}));
+		
+	}
+}

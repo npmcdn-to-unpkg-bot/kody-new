@@ -1,8 +1,10 @@
 var gulp = require('gulp');
 var browserify = require('browserify');
+var babelify = require('babelify');
+
 var source = require('vinyl-source-stream');
 var gutil = require('gulp-util');
-var babelify = require('babelify');
+var browserifyshim = require('browserify-shim');
 
 var dependencies = [
 	'react',
@@ -24,6 +26,7 @@ gulp.task('default', () => {
 	// the app
 	var app = browserify({
     	entries: './scripts/front/app.js',
+    	extensions: [".js", ".react"],
     	debug: true
   	})
 
@@ -32,19 +35,17 @@ gulp.task('default', () => {
 	});
 
 	app
-	  	.transform("babelify", {presets: ["es2015", "react"]})
+	  	.transform("babelify", {
+	  		presets: ["es2015", "react"],
+	  		extensions: [".js", ".react"]
+	  	})
+	  	.transform(browserifyshim)
 	    .bundle()
 	    .pipe(source('app.js'))
 	    .pipe(gulp.dest('public/assets/js'));
 
-    // return gulp.src('scripts/front/app.js')
-    //     .pipe(babel({
-    //         presets: ['es2015', 'react'],
-    //     }))
-    //     // .pipe(concat('all.js'))
-    //     .pipe(browserify({
-    //     	require: dependencies,
-    //       	debug : true
-    //     }))
-    //     .pipe(gulp.dest('public/assets/js'));
+});
+
+gulp.task('watch', function() {
+	gulp.watch(['scripts/front/**/*.js', 'scripts/front/**/*.react'], ['default']);
 });
